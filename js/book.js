@@ -1,47 +1,41 @@
 class Book {
     
+    id;
+    ind_id;
+    ind_id_type;
     title;
     description;
+    lang;
     yearOfPub;
-    authors = [];
-    canonicalVolumeLink;
-    webReaderLink;
+    publisher;
     viewability;
+    maturityRating;
+    canonicalVolumeLink;
     imgLink;
+    downloadPdfLink;
+    downloadEpubLink;
+    webReaderLink;    
+    
+    pageCount;
+    
+    authors = [];
+    categories = []
 
     constructor(book) {
 
-        /*
-            //accessInfo object
-            var accessViewStatus = json.items[i].accessInfo.accessViewStatus;
-            var country = json.items[i].accessInfo.country;
-            var publicDomain = json.items[i].accessInfo.publicDomain;
-                            
-            //saleInfo object
-            var buyLink = json.items[i].saleInfo.buyLink;
-            var saleability = json.items[i].saleInfo.saleability;
-            var amount = json.items[i].saleInfo.listPrice.amount;
-            var currencyCode = json.items[i].saleInfo.listPrice.currencyCode; 
-                            
-            //searchInfo object
-            var textSnippet = json.items[i].searchInfo.textSnippet;
+        //id
+        this.id = book.id;
 
-            //volumeInfo object            
-            var categories = [];
-                for(var c=0; c < json.items[i].volumeInfo.categories.length; c++){
-                    categories.push(json.items[i].volumeInfo.categories[c]);
-                }
-            var isbn_13 = json.items[i].volumeInfo.industryIdentifiers[0].identifier;
-            var isbn_10 = json.items[i].volumeInfo.industryIdentifiers[1].identifier;
-            var language = json.items[i].volumeInfo.language;
-            var maturityRating = json.items[i].volumeInfo.maturityRating;
-            var publisher = json.items[i].volumeInfo.publisher;
-
-            var etag = json.items[i].etag;
-            var id = json.items[i].id;
-            var kind = json.items[i].kind;
-            var selfLink = json.items[i].selfLink;
-        */
+        //industry identifier
+        this.ind_id = "Sconosciuto";
+        this.ind_id_type = "Sconosciuto";
+        
+        if(book.volumeInfo.hasOwnProperty("industryIdentifiers")){        
+                
+            this.ind_id = book.volumeInfo.industryIdentifiers[0]["identifier"];
+            this.ind_id_type = book.volumeInfo.industryIdentifiers[0]["type"];
+        
+        }
 
         //titolo
         this.title = book.volumeInfo.title;
@@ -52,12 +46,36 @@ class Book {
             this.description = book.volumeInfo.description;
         }
 
+        //lingua
+        this.lang = "";
+        if(book.volumeInfo.hasOwnProperty("language")){
+            this.lang = book.volumeInfo.language;
+        }
+
+        //editore
+        this.publisher = "";
+        if(book.volumeInfo.hasOwnProperty("publisher")){
+            this.publisher = book.volumeInfo.publisher;
+        }      
+
         //anno di pubblicazione (se disponibile)
         var date = new Date(book.volumeInfo.publishedDate);
         this.yearOfPub = "XXXX";          
         if(date.getFullYear()){
             this.yearOfPub = date.getFullYear();
         }
+
+        //maturity rating
+        this.maturityRating = "";
+        if(book.volumeInfo.hasOwnProperty("maturityRating")){
+            this.maturityRating = book.volumeInfo.maturityRating;
+        }         
+
+        //page count
+        this.pageCount = "0";
+        if(book.volumeInfo.hasOwnProperty("pageCount")){
+            this.pageCount = book.volumeInfo.pageCount;
+        }           
 
         //autore (se disponibile)
         //può comprendere più autori
@@ -68,6 +86,15 @@ class Book {
             }
         } else{
             this.authors.push("Sconosciuto");
+        }
+
+        if(book.volumeInfo.hasOwnProperty("categories")){
+
+            for(var i=0; i < book.volumeInfo.categories.length; i++){
+                this.categories.push(book.volumeInfo.categories[i]);
+            }
+        } else{
+            this.categories.push("Sconosciuto");
         }
 
         //link per informazioni sul libro (Google Books)
