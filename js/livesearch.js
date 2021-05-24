@@ -70,7 +70,7 @@ function liveSearch(str, startIndex) {
           document.getElementById('qLast').innerHTML = json.totalItems;
 
           //stampa dell'URL di chiamata (DEBUG)
-          console.log("q=" + filter + str + "&orderBy=" + order + "&startIndex=" + startIndex + "&maxResults=" + maxResults);
+          //console.log("q=" + filter + str + "&orderBy=" + order + "&startIndex=" + startIndex + "&maxResults=" + maxResults);
 
           try {
 
@@ -79,7 +79,7 @@ function liveSearch(str, startIndex) {
                   
                   var b = new Book(json.items[i]);
 
-                  console.log(json.items[i]);
+                  //console.log(json.items[i]);
 
                   //funzione che gestisce la grafica (vedi graphic.js)
                   addTableRow(b, flexbox);
@@ -88,7 +88,7 @@ function liveSearch(str, startIndex) {
             } catch (error) {
 
               //gestione degli errori
-              console.log(error);
+              //console.log(error);
               var errorText = document.createElement("p");
               var resultTable = document.getElementById("resultTable");
               errorText.style.textAlign = "center";

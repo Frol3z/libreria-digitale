@@ -26,7 +26,7 @@ function insertDB(addBtn, id, ind_id, ind_id_type, title, description, lang, yea
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
+      //console.log(this.responseText);
         if(this.responseText == "error"){
             addBtn.innerHTML = 'Già salvato (clicca per rimuovere): <i class="fas fa-minus" aria-hidden="true"></i>';
         }
