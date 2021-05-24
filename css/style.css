@@ -102,8 +102,11 @@ option:hover{
 }
 
 .centeredButton{
-    margin: 2vh auto 2vh;
-    text-align: center;
+    display: flex;
+    margin: 2vh auto;
+    flex-direction: row;
+    justify-content: center;
+    width: 70vw;
 }
 
 .centeredButton button{
@@ -114,13 +117,20 @@ option:hover{
     outline: 0;
     background: var(--gray);
     color: var(--very-light-gray);
+    margin-right: 20px;
 }
 
 .centeredButton i{
     color: var(--light-gray);
 }
 
-.centeredButton button:hover, #filter:hover, #order:hover, #maxResults:hover, #filter:focus, #order:focus, #maxResults:focus{
+.centeredButton button:hover, 
+#filter:hover, 
+#order:hover, 
+#maxResults:hover, 
+#filter:focus, 
+#order:focus, 
+#maxResults:focus{
     cursor: pointer;
     color: var(--light-gray);
     background-color: var(--cyan);
@@ -226,6 +236,7 @@ option:hover{
     flex-direction: column;
     background-color: transparent;
     width: 70vw;
+    font-family: Verdana;
 }
 
 #libraryTable{
@@ -252,14 +263,14 @@ option:hover{
     flex-direction: column;
     align-items: center;
     padding-top: 25px;
-    flex: 1 0 10%; 
+    flex: 1 0 20%; 
 }
 
 .flexboxRight{
     display: flex;
     flex-direction: column;
     align-content: center;
-    flex: 1 0 90%;
+    flex: 1 0 80%;
 }
 
 .title{
@@ -319,6 +330,7 @@ option:hover{
     overflow: hidden;
     border-left: 1px solid var(--very-light-gray);
     margin-left: 20px;
+    margin-right: 10px;
     line-height: 25px;
     padding: 10px;
     font-style: italic;
@@ -349,25 +361,62 @@ option:hover{
     padding: 20px;
 }
 
+.allBtns{
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+.allBtns .btns a p:hover{
+    color: var(--light-gray);
+    background-color: var(--cyan);
+    transition: .3s ease-out;
+}
+
+.allBtns .saveBook .addBtns:hover{
+    color: var(--light-gray);
+    background-color: var(--cyan);
+    transition: .3s ease-out;
+}
+
 .btns{
     display: flex;
-    padding: 20px;
+}
+
+.saveBook{
+    display: flex;
+}
+
+.btns a{
+    padding-right: 20px;
 }
 
 .btns a p{
-    position: relative;
-    color: white;
-    display: inline;
-    margin-right: 10px;
+    font-size: 16px;
+    border: none;
+    outline: 0;
+    padding: 10px;
+    background-color: var(--gray);
+    color: var(--very-light-gray);
+    font-family: Verdana;
+    text-align: center;
+    text-align-last:center;
 }
 
-.addBtns{
-    position: relative;
-    color: white;
-    display: inline;
+.saveBook .addBtns{
+    font-size: 16px;
+    border: none;
+    outline: 0;
+    padding: 10px;
+    background-color: var(--gray);
+    color: var(--very-light-gray);
+    font-family: Verdana;
+    text-align: center;
+    text-align-last:center;
 }
 
-.addBtns a{
+.saveBook .addBtns a{
     position: relative;
     color: white;
     display: inline;

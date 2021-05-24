@@ -8,6 +8,8 @@
 
     session_start();
 
+
+    //normalizzazione dei dati prima di inserirli nel database
     $user_id = $_SESSION["id"];
 
     $id = $_POST["id"];
@@ -43,11 +45,13 @@
     $startDate = date("Y-m-d");
     $finishDate = "00000000";
 
+    //inserisco i libri nella tabella libri
     $sql = "INSERT INTO libri(ID, industrial_ID, industrial_ID_type, titolo, descrizione, lingue, anno_pubblicazione, editore, viewability, maturity_rating, link, img_link, download_link_pdf, download_link_epub, web_reader_link) 
             VALUES (\"".$id."\",\"".$ind_id."\",\"".$ind_id_type."\",\"".$title."\",\"".$description."\",\"".$lang."\",\"".$yearOfPub."\",\"".$publisher."\",\"".$viewability."\",\"".$maturityRating."\",\"".$canonicalVolumeLink."\",\"".$imgLink."\",\"".$downloadPdfLink."\",\"".$downloadEpubLink."\",\"".$webReaderLink."\");";
 
     if ($conn->query($sql) === TRUE) {
-        //autori;
+        //se ha successo la precedente query, controllo se il suo autore sia già presente nel database
+        //autori
         for($i=0;$i<sizeof($authors);$i++){
 
             $check = "SELECT ID FROM autori WHERE nome = '".$authors[$i]."';";
@@ -55,13 +59,14 @@
 
             if ($result->num_rows > 0) {
                 //insert libri_autori
+                //se esiste già l'autore lo aggiungo solo nella tabella libri_autori
                 while($row = $result->fetch_assoc()) {
-
                     $insert = "INSERT INTO libri_autori(ID_libro, ID_autore) VALUES ('".$id."',".$row["ID"].")";
                     $conn->query($insert);
                   }
             } else {
                 //insert autori e libri_autori
+                //se non esiste l'autore lo aggiungo sia nella tabella autori che nella tabella libri_autori
                 $insert = "INSERT INTO autori(nome) VALUES ('".$authors[$i]."');";
 
                 if ($conn->query($insert) === TRUE) {
@@ -74,6 +79,7 @@
             }
         }
 
+        //se ha successo la precedente query, controllo se il suo genere sia già presente nel database
         //generi
         for($i=0;$i<sizeof($categories);$i++){
 
@@ -82,6 +88,7 @@
 
             if ($result->num_rows > 0) {
                 //insert libri_generi
+                //se esiste già il genere lo aggiungo solo nella tabella libri_generi
                 while($row = $result->fetch_assoc()) {
 
                     $insert = "INSERT INTO libri_generi(ID_libro, ID_genere) VALUES ('".$id."',".$row["ID"].")";
@@ -89,6 +96,7 @@
                   }
             } else {
                 //insert generi e libri_generi
+                //se non esiste il genere lo aggiungo sia nella tabella generi che nella tabella libri_generi
                 $insert = "INSERT INTO generi(valore) VALUES ('".$categories[$i]."');";
 
                 if ($conn->query($insert) === TRUE) {
@@ -104,6 +112,7 @@
         //echo "Error: " . $sql . "<br>" . $conn->error;
     }
 
+    //inserisco nella libreria
     $sql = "INSERT INTO librerie(ID_libro, ID_utente, pagine_lette, pagine_tot, data_inizio, stato) 
     VALUES (\"".$id."\",".$user_id.",".$readPage.",".$pageCount.",\"".$startDate."\",". 1 .");";
 

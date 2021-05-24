@@ -17,7 +17,9 @@ function addTableRow(b, flexbox){
     var authorsYoP = document.createElement('div');
     authorsYoP.className = "authorsYoP";
     var desc = document.createElement('div');
-    desc.className = "desc"; 
+    desc.className = "desc";
+    var allBtns = document.createElement('div');
+    allBtns.className = "allBtns"; 
     var btns = document.createElement('div');
     btns.className = "btns";
     var saveBook = document.createElement('div');
@@ -129,12 +131,13 @@ function addTableRow(b, flexbox){
         }
     };
 
-    btns.appendChild(addBtn);
-    flexboxRight.appendChild(btns);
+    saveBook.appendChild(addBtn);
+    allBtns.appendChild(btns);
+    allBtns.appendChild(saveBook);
+    flexboxRight.appendChild(allBtns);
 
     item.appendChild(flexboxLeft);
     item.appendChild(flexboxRight);
-    item.appendChild(saveBook);
 
     flexbox.appendChild(item);
 }

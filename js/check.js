@@ -1,3 +1,4 @@
+//controllo email con AJAX (registrazione)
 function checkEmail(str){
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -21,6 +22,7 @@ function checkEmail(str){
     xmlhttp.send();
 }
 
+//controllo di conferma della password
 function checkConfPassw(str, check){
    
     var e = document.getElementById("confPassword");
@@ -38,6 +40,7 @@ function checkConfPassw(str, check){
     }
 }
 
+//funziona nascondi/mostra password
 function showHidePsw(){
 
     var e = document.getElementById("showHide");
@@ -54,6 +57,7 @@ function showHidePsw(){
     }
 }
 
+//funziona nascondi/mostra conferma password
 function showHidePswConf(){
 
     var e = document.getElementById("showHideConf");

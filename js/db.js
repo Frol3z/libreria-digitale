@@ -1,5 +1,7 @@
+//inserimento nel database
 function insertDB(addBtn, id, ind_id, ind_id_type, title, description, lang, yearOfPub, publisher, viewability, maturityRating, canonicalVolumeLink, imgLink, downloadPdfLink, downloadEpubLink, webReaderLink, pageCount, authors, pageCount, categories){  
   
+  //normalizzazione di caratteri speciali che andrebbero in conflitto con l'URL della POST
   for(var i = 0; i<categories.length; i++){
     categories[i] = categories[i].replaceAll("&", "%26");
   }
@@ -21,8 +23,6 @@ function insertDB(addBtn, id, ind_id, ind_id_type, title, description, lang, yea
   downloadEpubLink = downloadEpubLink.replaceAll("&", "%26");
   webReaderLink = webReaderLink.replaceAll("&", "%26");
 
-  console.log(ind_id);
-
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -37,6 +37,7 @@ function insertDB(addBtn, id, ind_id, ind_id_type, title, description, lang, yea
   xhttp.send("id=" + id + "&ind_id=" + ind_id + "&ind_id_type=" + ind_id_type + "&title=" + title + "&description=" + description + "&lang=" + lang + "&yearOfPub=" + yearOfPub + "&publisher=" + publisher + "&viewability=" + viewability + "&maturityRating=" + maturityRating + "&canonicalVolumeLink=" + canonicalVolumeLink + "&imgLink=" + imgLink + "&downloadPdfLink=" + downloadPdfLink + "&downloadEpubLink=" + downloadEpubLink + "&webReaderLink=" + webReaderLink + "&pageCount=" + pageCount + "&authors=" + authors + "&pageCount=" + pageCount + "&categories=" + categories);
 }
 
+//eliminazione dal db
 function deleteDB(id){
 
     var xhttp = new XMLHttpRequest();
@@ -49,6 +50,7 @@ function deleteDB(id){
   xhttp.send("id=" + id);
 }
 
+//aggiornamento pagine lette
 function updateReadPage(id, value){
 
     var xhttp = new XMLHttpRequest();
@@ -61,6 +63,7 @@ function updateReadPage(id, value){
   xhttp.send("id=" + id + "&readPage=" + value);
 }
 
+//aggiornamento stato di lettura
 function updateStatus(id, value){
 
   var xhttp = new XMLHttpRequest();
@@ -73,6 +76,7 @@ xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 xhttp.send("id=" + id + "&status=" + value);
 }
 
+//aggiornamento data di inizio
 function updateStartDate(id, value){
 
   var xhttp = new XMLHttpRequest();
@@ -85,6 +89,7 @@ xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 xhttp.send("id=" + id + "&startDate=" + value);
 }
 
+//aggiornamento data di fine
 function updateFinishDate(id, value){
 
   var xhttp = new XMLHttpRequest();
@@ -97,12 +102,15 @@ xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 xhttp.send("id=" + id + "&finishDate=" + value);
 }
 
+//controllo che l'utente sia registrato prima di inserire un libro
 function checkSession(addBtn, id, ind_id, ind_id_type, title, description, lang, yearOfPub, publisher, viewability, maturityRating, canonicalVolumeLink, imgLink, downloadPdfLink, downloadEpubLink, webReaderLink, pageCount, authors, pageCount, categories){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function(ret) {
       if (this.readyState == 4 && this.status == 200) {
+        //se la funzione non esiste (false):
         if(this.responseText == false){
 
+            //controllo che il popup non sia già mostrato a schermo
             if(document.getElementsByClassName("popUp").length == 0){
                 var div = document.createElement("DIV");
                 div.className = "popUp";

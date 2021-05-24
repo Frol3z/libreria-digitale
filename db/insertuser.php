@@ -11,6 +11,7 @@
     $email = $_POST["email"];
     $password = hash('sha256', $_POST["password"]);
 
+    //inserisco l'utente nel database
     $sql = 'INSERT INTO utenti(nome, cognome, email, password) 
             VALUES ("'.$name.'","'.$surname.'","'.$email.'","'.$password.'")';
 
@@ -21,6 +22,7 @@
     echo "Error: " . $sql . "<br>" . $conn->error;
     }
 
+    //avvio della sessione utilizzando l'ID dell'utente appena inserito
     session_start();
     $_SESSION["id"] = $last_id;
 

@@ -11,6 +11,7 @@
     $id = $_POST["id"];
     $user_id = $_SESSION["id"];
 
+    //in base ai valori passati in POST, aggiorno il database
     if(isset($_POST["readPage"])){
 
         $readPage = $_POST["readPage"];

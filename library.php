@@ -29,6 +29,7 @@
 
                 include "db/connection.php";
 
+                //leggo gli stati di lettura dalla relativa tabella
                 $sql = 'SELECT valore FROM stati';
 
                 $result = $conn->query($sql);
@@ -51,6 +52,7 @@
                     }
                 }
 
+                //leggo i libri salvati nella libreria dell'utente loggato e li ordino in base allo stato (In Lettura, In Pausa, Completato)
                 $sql = 'SELECT * FROM libri 
                         INNER JOIN librerie
                         ON librerie.ID_libro = libri.ID
@@ -58,8 +60,8 @@
                         ORDER BY librerie.stato ASC;';
 
                 $result = $conn->query($sql);
-                //echo $sql;
 
+                //stampo i risultati
                 if ($result->num_rows > 0) {
 
                     echo '<div id="libraryTable">';
@@ -84,7 +86,7 @@
                         $downloadEpubLink = $row["download_link_epub"];
                         $webReaderLink = $row["web_reader_link"];
                         $readPage = $row["pagine_lette"];
-                        $pageCount = $row["pagine_tot"]; if($pageCount == 0){$pageCount = "?";};
+                        $pageCount = $row["pagine_tot"]; if($pageCount == 0){$pageCount = "?";}; //se non si conoscono le pagine totali, si stampa "?"
                         $startDate = $row["data_inizio"];
                         $finishDate = $row["data_fine"];
                         $stato = $row["stato"];
