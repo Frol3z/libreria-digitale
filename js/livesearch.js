@@ -102,7 +102,7 @@ function liveSearch(str, startIndex) {
         }
     }
 
-    //invio dei parametri alla pagina PHP
-    xmlhttp.open("GET","livesearch.php?q=" + filter + str + "&orderBy=" + order + "&startIndex=" + startIndex + "&maxResults=" + maxResults, true);
+    //chiamata API
+    xmlhttp.open("GET","https://www.googleapis.com/books/v1/volumes?q=" + filter + str + "&orderBy=" + order + "&startIndex=" + startIndex + "&maxResults=" + maxResults, true);
     xmlhttp.send();
 }

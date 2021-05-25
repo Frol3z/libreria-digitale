@@ -5,10 +5,6 @@
     src: url(../font/CONSOLA.ttf);
   }
 
-html {
-  scroll-behavior: smooth;
-}
-
 :root{
     --background-color: #1D1D1D;
     --main-color: #2F3D42;
